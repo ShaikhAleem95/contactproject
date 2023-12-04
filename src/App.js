@@ -11,10 +11,10 @@ function App() {
 
   //local storage in used usedeffect
   const localstoreagekey="contact"
-  useEffect(()=>{
+useEffect(()=>{
     localStorage.setItem(localstoreagekey,JSON.stringify(contact))
   },[contact])
-////////
+////////local storeage me value show karni hai to useeffect ka istemal kare
   const addContact=(data)=>{
  
     // install npm install uuid4 ye eak function unique id generate karta hai    
