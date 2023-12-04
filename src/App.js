@@ -1,23 +1,38 @@
-import logo from './logo.svg';
 import './App.css';
+import Header from './Components/Header';
+import AddContact from './Components/AddContact';
+import ContactList from './Components/ContactList';
+import { useEffect, useState } from 'react';
+import uuid4 from 'uuid4';
 
 function App() {
+
+  const [contact,setcontact]=useState([]);
+
+  //local storage in used usedeffect
+  const localstoreagekey="contact"
+  useEffect(()=>{
+    localStorage.setItem(localstoreagekey,JSON.stringify(contact))
+  },[contact])
+////////
+  const addContact=(data)=>{
+ 
+    // install npm install uuid4 ye eak function unique id generate karta hai    
+    setcontact([...contact,{id:uuid4(),data}])
+    
+  }
+  const removeContact=(id)=>{
+    const updatelist=contact.filter((val)=>{
+      return  val.id !== id;
+    })
+    setcontact(updatelist)
+  
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header/>
+      <AddContact addContact={addContact}/>
+      <ContactList contact={contact} removeContact={removeContact} />
     </div>
   );
 }
